@@ -578,13 +578,14 @@ impl SpacebotModel {
 
         let response = anthropic_request
             .builder
+            .timeout(std::time::Duration::from_secs(STREAM_REQUEST_TIMEOUT_SECS))
             .send()
             .await
-            .map_err(|e| CompletionError::ProviderError(e.to_string()))?;
+            .map_err(|e| CompletionError::ProviderError(format!("{e:#}")))?;
 
         let status = response.status();
         let response_text = response.text().await.map_err(|e| {
-            CompletionError::ProviderError(format!("failed to read response body: {e}"))
+            CompletionError::ProviderError(format!("failed to read response body: {e:#}"))
         })?;
 
         let response_body: serde_json::Value =
@@ -819,11 +820,11 @@ impl SpacebotModel {
             .json(&body)
             .send()
             .await
-            .map_err(|e| CompletionError::ProviderError(e.to_string()))?;
+            .map_err(|e| CompletionError::ProviderError(format!("{e:#}")))?;
 
         let status = response.status();
         let response_text = response.text().await.map_err(|e| {
-            CompletionError::ProviderError(format!("failed to read response body: {e}"))
+            CompletionError::ProviderError(format!("failed to read response body: {e:#}"))
         })?;
 
         if !status.is_success() {
