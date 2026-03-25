@@ -83,18 +83,21 @@ pub fn build_anthropic_request(
     }
 
     if adaptive_thinking {
-        body["thinking"] = serde_json::json!({ "type": "adaptive" });
-        let effort = match thinking_effort {
-            "max" | "high" | "medium" | "low" => thinking_effort,
-            _ => {
-                if is_opus(model_name) {
-                    "max"
-                } else {
-                    "high"
-                }
-            }
+        // Bedrock proxies don't support adaptive thinking — use enabled
+        // with a generous budget. output_config is also unsupported.
+        let max_tokens = request.max_tokens.unwrap_or(16_000);
+        let budget = if is_opus(model_name) {
+            // Opus: use ~half of max_tokens for thinking, minimum 10k
+            (max_tokens / 2).max(10_000).min(max_tokens - 1)
+        } else {
+            (max_tokens / 4).max(4_000).min(max_tokens - 1)
         };
-        body["output_config"] = serde_json::json!({ "effort": effort });
+        body["thinking"] = serde_json::json!({
+            "type": "enabled",
+            "budget_tokens": budget
+        });
+        // thinking requires temperature=1
+        body["temperature"] = serde_json::json!(1);
     }
 
     let builder = http_client
