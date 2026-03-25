@@ -569,7 +569,7 @@ impl SpacebotModel {
             &self.model_name,
             &request,
             effort,
-            provider_config.use_bearer_auth,
+            provider_config.use_proxy_api_key,
         );
 
         let is_oauth =

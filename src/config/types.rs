@@ -218,8 +218,8 @@ pub struct ProviderConfig {
     pub name: Option<String>,
     /// When true, use `Authorization: Bearer` instead of `x-api-key` for
     /// Anthropic requests. Set automatically when the key originates from
-    /// `ANTHROPIC_AUTH_TOKEN` (proxy-compatible auth).
-    pub use_bearer_auth: bool,
+    /// `ANTHROPIC_AUTH_TOKEN` — sends `api-key` header for MPS-style proxies.
+    pub use_proxy_api_key: bool,
     /// Additional HTTP headers included in requests to this provider.
     /// Currently applied in `call_openai()` (the `OpenAiCompletions` path).
     pub extra_headers: Vec<(String, String)>,
@@ -232,7 +232,7 @@ impl std::fmt::Debug for ProviderConfig {
             .field("base_url", &self.base_url)
             .field("api_key", &"[REDACTED]")
             .field("name", &self.name)
-            .field("use_bearer_auth", &self.use_bearer_auth)
+            .field("use_proxy_api_key", &self.use_proxy_api_key)
             .field(
                 "extra_headers",
                 &self

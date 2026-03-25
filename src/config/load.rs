@@ -446,7 +446,7 @@ impl Config {
                     base_url,
                     api_key: anthropic_key,
                     name: None,
-                    use_bearer_auth: anthropic_from_auth_token,
+                    use_proxy_api_key: anthropic_from_auth_token,
                     extra_headers: vec![],
                 });
         }
@@ -459,7 +459,7 @@ impl Config {
                     base_url: OPENROUTER_PROVIDER_BASE_URL.to_string(),
                     api_key: openrouter_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: openrouter_extra_headers(),
                 });
         }
@@ -530,7 +530,7 @@ impl Config {
                     base_url: MINIMAX_PROVIDER_BASE_URL.to_string(),
                     api_key: minimax_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -543,7 +543,7 @@ impl Config {
                     base_url: MINIMAX_CN_PROVIDER_BASE_URL.to_string(),
                     api_key: minimax_cn_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -556,7 +556,7 @@ impl Config {
                     base_url: OPENAI_PROVIDER_BASE_URL.to_string(),
                     api_key: openai_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -569,7 +569,7 @@ impl Config {
                     base_url: OPENROUTER_PROVIDER_BASE_URL.to_string(),
                     api_key: openrouter_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: openrouter_extra_headers(),
                 });
         }
@@ -610,7 +610,7 @@ impl Config {
                     base_url: OPENCODE_ZEN_PROVIDER_BASE_URL.to_string(),
                     api_key: opencode_zen_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -623,7 +623,7 @@ impl Config {
                     base_url: OPENCODE_GO_PROVIDER_BASE_URL.to_string(),
                     api_key: opencode_go_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -636,7 +636,7 @@ impl Config {
                     base_url: MINIMAX_PROVIDER_BASE_URL.to_string(),
                     api_key: minimax_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -649,7 +649,7 @@ impl Config {
                     base_url: MINIMAX_CN_PROVIDER_BASE_URL.to_string(),
                     api_key: minimax_cn_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -662,7 +662,7 @@ impl Config {
                     base_url: MOONSHOT_PROVIDER_BASE_URL.to_string(),
                     api_key: moonshot_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -675,7 +675,7 @@ impl Config {
                     base_url: NVIDIA_PROVIDER_BASE_URL.to_string(),
                     api_key: nvidia_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -688,7 +688,7 @@ impl Config {
                     base_url: FIREWORKS_PROVIDER_BASE_URL.to_string(),
                     api_key: fireworks_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -701,7 +701,7 @@ impl Config {
                     base_url: DEEPSEEK_PROVIDER_BASE_URL.to_string(),
                     api_key: deepseek_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -714,7 +714,7 @@ impl Config {
                     base_url: GEMINI_PROVIDER_BASE_URL.to_string(),
                     api_key: gemini_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -727,7 +727,7 @@ impl Config {
                     base_url: GROQ_PROVIDER_BASE_URL.to_string(),
                     api_key: groq_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -740,7 +740,7 @@ impl Config {
                     base_url: TOGETHER_PROVIDER_BASE_URL.to_string(),
                     api_key: together_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -753,7 +753,7 @@ impl Config {
                     base_url: XAI_PROVIDER_BASE_URL.to_string(),
                     api_key: xai_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -766,7 +766,7 @@ impl Config {
                     base_url: MISTRAL_PROVIDER_BASE_URL.to_string(),
                     api_key: mistral_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -782,7 +782,7 @@ impl Config {
                         .unwrap_or_else(|| OLLAMA_PROVIDER_BASE_URL.to_string()),
                     api_key: llm.ollama_key.clone().unwrap_or_default(),
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1099,7 +1099,7 @@ impl Config {
                             base_url: config.base_url,
                             api_key,
                             name: config.name,
-                            use_bearer_auth: false,
+                            use_proxy_api_key: false,
                             extra_headers,
                         },
                     ))
@@ -1109,7 +1109,7 @@ impl Config {
 
         // Detect if the Anthropic key came from ANTHROPIC_AUTH_TOKEN (proxy auth).
         // In from_toml, the key may come from toml config, ANTHROPIC_API_KEY, or
-        // ANTHROPIC_AUTH_TOKEN (in that priority order). We only set use_bearer_auth
+        // ANTHROPIC_AUTH_TOKEN (in that priority order). We only set use_proxy_api_key
         // if AUTH_TOKEN was the actual source.
         let anthropic_from_auth_token = toml_llm_anthropic_key_was_none
             && std::env::var("ANTHROPIC_API_KEY").is_err()
@@ -1125,7 +1125,7 @@ impl Config {
                     base_url,
                     api_key: anthropic_key,
                     name: None,
-                    use_bearer_auth: anthropic_from_auth_token,
+                    use_proxy_api_key: anthropic_from_auth_token,
                     extra_headers: vec![],
                 });
         }
@@ -1138,7 +1138,7 @@ impl Config {
                     base_url: OPENAI_PROVIDER_BASE_URL.to_string(),
                     api_key: openai_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1151,7 +1151,7 @@ impl Config {
                     base_url: OPENROUTER_PROVIDER_BASE_URL.to_string(),
                     api_key: openrouter_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: openrouter_extra_headers(),
                 });
         }
@@ -1222,7 +1222,7 @@ impl Config {
                     base_url: MINIMAX_PROVIDER_BASE_URL.to_string(),
                     api_key: minimax_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1235,7 +1235,7 @@ impl Config {
                     base_url: MINIMAX_CN_PROVIDER_BASE_URL.to_string(),
                     api_key: minimax_cn_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1248,7 +1248,7 @@ impl Config {
                     base_url: MOONSHOT_PROVIDER_BASE_URL.to_string(),
                     api_key: moonshot_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1261,7 +1261,7 @@ impl Config {
                     base_url: NVIDIA_PROVIDER_BASE_URL.to_string(),
                     api_key: nvidia_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1274,7 +1274,7 @@ impl Config {
                     base_url: FIREWORKS_PROVIDER_BASE_URL.to_string(),
                     api_key: fireworks_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1287,7 +1287,7 @@ impl Config {
                     base_url: DEEPSEEK_PROVIDER_BASE_URL.to_string(),
                     api_key: deepseek_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1300,7 +1300,7 @@ impl Config {
                     base_url: GEMINI_PROVIDER_BASE_URL.to_string(),
                     api_key: gemini_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1313,7 +1313,7 @@ impl Config {
                     base_url: GROQ_PROVIDER_BASE_URL.to_string(),
                     api_key: groq_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1326,7 +1326,7 @@ impl Config {
                     base_url: TOGETHER_PROVIDER_BASE_URL.to_string(),
                     api_key: together_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1339,7 +1339,7 @@ impl Config {
                     base_url: XAI_PROVIDER_BASE_URL.to_string(),
                     api_key: xai_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1352,7 +1352,7 @@ impl Config {
                     base_url: MISTRAL_PROVIDER_BASE_URL.to_string(),
                     api_key: mistral_key,
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }
@@ -1368,7 +1368,7 @@ impl Config {
                         .unwrap_or_else(|| OLLAMA_PROVIDER_BASE_URL.to_string()),
                     api_key: llm.ollama_key.clone().unwrap_or_default(),
                     name: None,
-                    use_bearer_auth: false,
+                    use_proxy_api_key: false,
                     extra_headers: vec![],
                 });
         }

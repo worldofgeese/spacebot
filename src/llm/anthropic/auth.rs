@@ -88,18 +88,18 @@ pub enum AnthropicAuthPath {
     ApiKey,
     /// OAuth token (sk-ant-oat*) — uses Bearer auth with Claude Code identity.
     OAuthToken,
-    /// Proxy bearer token — uses `Authorization: Bearer` without Claude Code
-    /// identity headers. Used when key originates from `ANTHROPIC_AUTH_TOKEN`.
-    ProxyBearer,
+    /// Proxy API key — uses `api-key` header (MPS convention) without Claude
+    /// Code identity headers. Used when key originates from `ANTHROPIC_AUTH_TOKEN`.
+    ProxyApiKey,
 }
 
 /// Detect the auth path from a token's prefix.
 ///
-/// If `force_bearer` is true (key came from `ANTHROPIC_AUTH_TOKEN`),
-/// returns `ProxyBearer` regardless of prefix.
-pub fn detect_auth_path(token: &str, force_bearer: bool) -> AnthropicAuthPath {
-    if force_bearer {
-        AnthropicAuthPath::ProxyBearer
+/// If `force_proxy_api_key` is true (key came from `ANTHROPIC_AUTH_TOKEN`),
+/// returns `ProxyApiKey` regardless of prefix.
+pub fn detect_auth_path(token: &str, force_proxy_api_key: bool) -> AnthropicAuthPath {
+    if force_proxy_api_key {
+        AnthropicAuthPath::ProxyApiKey
     } else if token.starts_with("sk-ant-oat") {
         AnthropicAuthPath::OAuthToken
     } else {
@@ -115,9 +115,9 @@ pub fn apply_auth_headers(
     builder: RequestBuilder,
     token: &str,
     interleaved_thinking: bool,
-    force_bearer: bool,
+    force_proxy_api_key: bool,
 ) -> (RequestBuilder, AnthropicAuthPath) {
-    let auth_path = detect_auth_path(token, force_bearer);
+    let auth_path = detect_auth_path(token, force_proxy_api_key);
 
     let mut beta_parts: Vec<&str> = Vec::new();
     let builder = match auth_path {
@@ -134,9 +134,9 @@ pub fn apply_auth_headers(
                 .header("user-agent", CLAUDE_CODE_USER_AGENT)
                 .header("x-app", "cli")
         }
-        AnthropicAuthPath::ProxyBearer => {
+        AnthropicAuthPath::ProxyApiKey => {
             beta_parts.push(BETA_FINE_GRAINED_STREAMING);
-            builder.header("Authorization", format!("Bearer {token}"))
+            builder.header("api-key", token)
         }
     };
 
@@ -155,17 +155,17 @@ mod tests {
     use super::*;
 
     fn build_request(token: &str, thinking: bool) -> (reqwest::Request, AnthropicAuthPath) {
-        build_request_with_bearer(token, thinking, false)
+        build_request_with_proxy(token, thinking, false)
     }
 
-    fn build_request_with_bearer(
+    fn build_request_with_proxy(
         token: &str,
         thinking: bool,
-        force_bearer: bool,
+        force_proxy_api_key: bool,
     ) -> (reqwest::Request, AnthropicAuthPath) {
         let client = reqwest::Client::new();
         let builder = client.post("https://api.anthropic.com/v1/messages");
-        let (builder, auth_path) = apply_auth_headers(builder, token, thinking, force_bearer);
+        let (builder, auth_path) = apply_auth_headers(builder, token, thinking, force_proxy_api_key);
         (builder.build().unwrap(), auth_path)
     }
 
@@ -194,14 +194,14 @@ mod tests {
     }
 
     #[test]
-    fn force_bearer_overrides_prefix() {
+    fn force_proxy_api_key_overrides_prefix() {
         assert_eq!(
             detect_auth_path("sk-ant-api03-xyz789", true),
-            AnthropicAuthPath::ProxyBearer
+            AnthropicAuthPath::ProxyApiKey
         );
         assert_eq!(
             detect_auth_path("some-proxy-token", true),
-            AnthropicAuthPath::ProxyBearer
+            AnthropicAuthPath::ProxyApiKey
         );
     }
 
@@ -282,19 +282,20 @@ mod tests {
     }
 
     #[test]
-    fn proxy_bearer_uses_bearer_header() {
-        let (request, auth_path) = build_request_with_bearer("my-proxy-token", false, true);
-        assert_eq!(auth_path, AnthropicAuthPath::ProxyBearer);
+    fn proxy_api_key_uses_api_key_header() {
+        let (request, auth_path) = build_request_with_proxy("my-proxy-token", false, true);
+        assert_eq!(auth_path, AnthropicAuthPath::ProxyApiKey);
         assert_eq!(
-            request.headers().get("Authorization").unwrap(),
-            "Bearer my-proxy-token"
+            request.headers().get("api-key").unwrap(),
+            "my-proxy-token"
         );
+        assert!(request.headers().get("Authorization").is_none());
         assert!(request.headers().get("x-api-key").is_none());
     }
 
     #[test]
-    fn proxy_bearer_has_no_identity_headers() {
-        let (request, _) = build_request_with_bearer("my-proxy-token", false, true);
+    fn proxy_api_key_has_no_identity_headers() {
+        let (request, _) = build_request_with_proxy("my-proxy-token", false, true);
         assert!(request.headers().get("x-app").is_none());
         // Should not have Claude Code user-agent
         let ua = request
@@ -305,8 +306,8 @@ mod tests {
     }
 
     #[test]
-    fn proxy_bearer_has_streaming_beta_but_not_oauth() {
-        let (request, _) = build_request_with_bearer("my-proxy-token", false, true);
+    fn proxy_api_key_has_streaming_beta_but_not_oauth() {
+        let (request, _) = build_request_with_proxy("my-proxy-token", false, true);
         let beta = request
             .headers()
             .get("anthropic-beta")

@@ -59,7 +59,7 @@ pub(crate) fn default_provider_config(
             base_url: ANTHROPIC_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "openai" => ProviderConfig {
@@ -67,7 +67,7 @@ pub(crate) fn default_provider_config(
             base_url: OPENAI_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "openrouter" => ProviderConfig {
@@ -75,7 +75,7 @@ pub(crate) fn default_provider_config(
             base_url: OPENROUTER_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: openrouter_extra_headers(),
         },
         "kilo" => ProviderConfig {
@@ -83,7 +83,7 @@ pub(crate) fn default_provider_config(
             base_url: KILO_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: Some("Kilo Gateway".to_string()),
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "zhipu" => ProviderConfig {
@@ -91,7 +91,7 @@ pub(crate) fn default_provider_config(
             base_url: ZHIPU_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: Some("Z.AI (GLM)".to_string()),
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "groq" => ProviderConfig {
@@ -99,7 +99,7 @@ pub(crate) fn default_provider_config(
             base_url: GROQ_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "together" => ProviderConfig {
@@ -107,7 +107,7 @@ pub(crate) fn default_provider_config(
             base_url: TOGETHER_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "fireworks" => ProviderConfig {
@@ -115,7 +115,7 @@ pub(crate) fn default_provider_config(
             base_url: FIREWORKS_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "deepseek" => ProviderConfig {
@@ -123,7 +123,7 @@ pub(crate) fn default_provider_config(
             base_url: DEEPSEEK_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "xai" => ProviderConfig {
@@ -131,7 +131,7 @@ pub(crate) fn default_provider_config(
             base_url: XAI_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "mistral" => ProviderConfig {
@@ -139,7 +139,7 @@ pub(crate) fn default_provider_config(
             base_url: MISTRAL_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "gemini" => ProviderConfig {
@@ -147,7 +147,7 @@ pub(crate) fn default_provider_config(
             base_url: GEMINI_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "ollama" => ProviderConfig {
@@ -155,7 +155,7 @@ pub(crate) fn default_provider_config(
             base_url: api_key,
             api_key: String::new(),
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "opencode-zen" => ProviderConfig {
@@ -163,7 +163,7 @@ pub(crate) fn default_provider_config(
             base_url: OPENCODE_ZEN_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "opencode-go" => ProviderConfig {
@@ -171,7 +171,7 @@ pub(crate) fn default_provider_config(
             base_url: OPENCODE_GO_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "nvidia" => ProviderConfig {
@@ -179,7 +179,7 @@ pub(crate) fn default_provider_config(
             base_url: NVIDIA_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "minimax" => ProviderConfig {
@@ -187,7 +187,7 @@ pub(crate) fn default_provider_config(
             base_url: MINIMAX_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "minimax-cn" => ProviderConfig {
@@ -195,7 +195,7 @@ pub(crate) fn default_provider_config(
             base_url: MINIMAX_CN_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "moonshot" => ProviderConfig {
@@ -203,7 +203,7 @@ pub(crate) fn default_provider_config(
             base_url: MOONSHOT_PROVIDER_BASE_URL.to_string(),
             api_key,
             name: None,
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         "zai-coding-plan" => ProviderConfig {
@@ -211,7 +211,7 @@ pub(crate) fn default_provider_config(
             base_url: ZAI_CODING_PLAN_BASE_URL.to_string(),
             api_key,
             name: Some("Z.AI Coding Plan".to_string()),
-            use_bearer_auth: false,
+            use_proxy_api_key: false,
             extra_headers: vec![],
         },
         // GitHub Copilot requires token exchange and dynamic base URL derivation.
@@ -228,7 +228,7 @@ pub(super) fn add_shorthand_provider(
     api_type: ApiType,
     base_url: &str,
     name: Option<&str>,
-    use_bearer_auth: bool,
+    use_proxy_api_key: bool,
 ) {
     if let Some(api_key) = key {
         providers
@@ -238,7 +238,7 @@ pub(super) fn add_shorthand_provider(
                 base_url: base_url.to_string(),
                 api_key,
                 name: name.map(str::to_string),
-                use_bearer_auth,
+                use_proxy_api_key,
                 extra_headers: vec![],
             });
     }
