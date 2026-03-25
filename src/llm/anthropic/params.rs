@@ -88,7 +88,10 @@ pub fn build_anthropic_request(
         body["temperature"] = serde_json::json!(temperature);
     }
 
-    if adaptive_thinking {
+    // Only enable thinking when NOT using a proxy (non-streaming requests
+    // through Bedrock proxies timeout with thinking enabled on complex tasks).
+    // The proxy has a 120s max timeout but Opus thinking can take much longer.
+    if adaptive_thinking && !force_proxy_api_key {
         // Bedrock proxies don't support adaptive thinking — use enabled
         // with a generous budget. output_config is also unsupported.
         let max_tokens = request.max_tokens.unwrap_or(16_000);
