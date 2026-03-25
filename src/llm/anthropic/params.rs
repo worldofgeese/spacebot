@@ -35,12 +35,18 @@ fn is_opus(model_id: &str) -> bool {
 ///
 /// If the base URL already ends with a path segment (e.g. `/v1/messages`),
 /// use it as-is. Otherwise append `/v1/messages`.
-fn messages_url(base_url: &str) -> String {
+fn messages_url(base_url: &str, is_opus: bool) -> String {
     let trimmed = base_url.trim_end_matches('/');
-    if trimmed.ends_with("/v1/messages") {
+    let url = if trimmed.ends_with("/v1/messages") {
         trimmed.to_string()
     } else {
         format!("{trimmed}/v1/messages")
+    };
+    // Opus with thinking needs more time — request 120s from MPS proxy
+    if is_opus {
+        format!("{url}?proxy-call-timeout-sec=120")
+    } else {
+        url
     }
 }
 
@@ -63,7 +69,7 @@ pub fn build_anthropic_request(
     let is_oauth = auth::detect_auth_path(api_key, force_proxy_api_key) == AnthropicAuthPath::OAuthToken;
     let adaptive_thinking = supports_adaptive_thinking(model_name);
     let retention = cache::resolve_cache_retention(None);
-    let url = messages_url(base_url);
+    let url = messages_url(base_url, is_opus(model_name));
     let cache_control = cache::get_cache_control(&url, retention);
 
     let mut body = serde_json::json!({
