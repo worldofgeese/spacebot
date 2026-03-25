@@ -57,7 +57,7 @@ pub fn build_anthropic_request(
     base_url: &str,
     model_name: &str,
     request: &CompletionRequest,
-    thinking_effort: &str,
+    _thinking_effort: &str,
     force_proxy_api_key: bool,
 ) -> AnthropicRequest {
     let is_oauth = auth::detect_auth_path(api_key, force_proxy_api_key) == AnthropicAuthPath::OAuthToken;
